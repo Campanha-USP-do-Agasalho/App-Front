@@ -88,7 +88,7 @@ export default function MemberList() {
   return (
     <View style={globalStyles.container}>
       <StatusBar
-        backgroundColor={colors.primary}
+        backgroundColor={colors.secondary}
         barStyle="light-content"
         translucent
       />
@@ -98,7 +98,7 @@ export default function MemberList() {
 
       {/* SEARCH BAR */}
       <View style={styles.searchBar}>
-        {/* VIEW COM LEITURA DO NOME DO MEMBRO E 
+        {/* VIEW COM LEITURA DO NOME DO MEMBRO E
                         ICONE DE PESQUISA */}
         <ShimmerPlaceHolder
           style={styles.nameSearchPlaceholder}
