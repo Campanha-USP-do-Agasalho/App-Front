@@ -52,18 +52,25 @@ export default StyleSheet.create({
   },
 
   PickerView: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-around',
     marginLeft: 5,
+
+    paddingHorizontal: 0.045 * width,
     borderRadius: 30,
     borderWidth: 1,
     borderColor: colors.black,
+    backgroundColor: colors.white,
     overflow: 'hidden',
   },
+
   Picker: {
     backgroundColor: colors.white,
     height: 0.08 * height,
-    width: 0.48 * width,
-    paddingHorizontal: 0.027 * width,
+    width: 0.35 * width,
   },
+
   line: {
     backgroundColor: colors.black,
     height: 1,

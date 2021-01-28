@@ -104,10 +104,11 @@ export default function EventList() {
             <View style={styles.PickerView}>
               <Picker
                 selectedValue={team}
-                onValueChange={(itemValue) => {
-                  filterEventsbyTeam(itemValue);
-                }}
+                // onValueChange={(itemValue) => {
+                //   filterEventsbyTeam(itemValue);
+                // }}
                 style={styles.Picker}
+                mode="dialog"
               >
                 <Picker.Item
                   color={colors.grey3}
@@ -120,15 +121,17 @@ export default function EventList() {
                 <Picker.Item label="RE" value="Relações Externas" />
                 <Picker.Item label="Geral" value="Geral" />
               </Picker>
+              <FontAwesome name="caret-down" color={colors.primary} size={28} />
             </View>
 
             <View style={styles.PickerView}>
               <Picker
                 selectedValue={team}
-                onValueChange={(itemValue) => {
-                  filterEventsbyTeam(itemValue);
-                }}
+                // onValueChange={(itemValue) => {
+                //   filterEventsbyTeam(itemValue);
+                // }}
                 style={styles.Picker}
+                mode="dropdown"
               >
                 <Picker.Item
                   color={colors.grey3}
@@ -141,6 +144,7 @@ export default function EventList() {
                 <Picker.Item label="RE" value="Relações Externas" />
                 <Picker.Item label="Geral" value="Geral" />
               </Picker>
+              <FontAwesome name="caret-down" color={colors.primary} size={28} />
             </View>
           </View>
         </ShimmerPlaceHolder>
