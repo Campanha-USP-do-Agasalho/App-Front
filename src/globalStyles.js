@@ -23,7 +23,7 @@ export default StyleSheet.create({
   container: {
     flex: 1,
     paddingTop: Constants.statusBarHeight,
-    backgroundColor: colors.secondary,
+    backgroundColor: colors.primary,
   },
   authContainer: {
     flex: 1,
