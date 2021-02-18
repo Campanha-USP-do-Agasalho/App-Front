@@ -2,8 +2,11 @@
 // REACT E REACT NATIVES IMPORTS
 
 import React, { useState, useEffect } from 'react';
-import { Image, StatusBar, View, Text, TouchableOpacity } from 'react-native';
+import {
+  StatusBar, View, Text, TouchableOpacity,
+} from 'react-native';
 import { useNavigation, useRoute } from '@react-navigation/native';
+import { Image } from 'react-native-expo-image-cache';
 import ShimmerPlaceHolder from 'react-native-shimmer-placeholder';
 import { Avatar } from 'react-native-elements';
 import AsyncStorage from '@react-native-community/async-storage';
@@ -15,7 +18,6 @@ import {
   FontAwesome5,
   FontAwesome,
 } from '@expo/vector-icons';
-import carIcon from '../../assets/Icons/Car.png';
 import notCarIcon from '../../assets/Icons/notCar.png';
 
 // ESTILOS
@@ -29,7 +31,7 @@ import DrawerModal from '../../modals/drawerModal';
 import ShowCrown from '../../components/showCrown';
 import ShowEditSave from '../../components/showEditSave';
 import TeamIcon from '../../components/TeamIcon';
-
+import CarIcon from '../../components/CarIcon';
 // API
 import api from '../../services/api';
 
@@ -66,8 +68,10 @@ export default function ViewProfile() {
 
   // RECUPERA AS INFORMAÇÕES DO MEMBRO NO BANCO
   async function getMember(memberId) {
+    console.log('hello');
     const resp = await api.get(`/members/${memberId}`, {});
     setMember(resp.data);
+
     setLoaded(true);
   }
 
@@ -111,7 +115,9 @@ export default function ViewProfile() {
       <View style={styles.profileContainer}>
         {/* Parte com o botão de editar e a foto */}
         <ShimmerPlaceHolder
-          style={{ height: 120, width: '90%', marginTop: 10, marginLeft: 10 }}
+          style={{
+            height: 120, width: '90%', marginTop: 10, marginLeft: 10,
+          }}
           autoRun
           visible={loaded}
         >
@@ -120,15 +126,27 @@ export default function ViewProfile() {
               <View style={styles.photoContainer}>
                 <View style={styles.photo}>
                   <ShowCrown show={member.coord} />
-                  <Avatar
-                    containerStyle={styles.standartAvatar}
-                    size="large"
-                    rounded
-                    title={member.name ? member.name.slice(0, 2) : 'UN'}
-                    onPress={() => console.log('Works!')}
-                    activeOpacity={0.8}
-                    source={{ uri: member.image ? member.image.url : 'none' }}
-                  />
+
+                  {(member.image && member.image.url)
+                    ? (
+                      <View>
+                        <Image style={styles.avatar} uri={member.image.url} />
+                      </View>
+                    )
+                    : (
+                      <View>
+                        <Avatar
+                          containerStyle={styles.standartAvatar}
+                          size="large"
+                          rounded
+                          title={member.name ? member.name.slice(0, 2) : 'UN'}
+                          onPress={() => console.log('Works!')}
+                          activeOpacity={0.8}
+                          source={{ uri: 'none' }}
+                        />
+                      </View>
+                    )}
+
                 </View>
               </View>
               <ShowEditSave
@@ -154,7 +172,11 @@ export default function ViewProfile() {
           >
             <View style={styles.names}>
               <Text style={styles.realName}>{member.name}</Text>
-              <Text style={styles.nickname}>({member.realName})</Text>
+              <Text style={styles.nickname}>
+                (
+                {member.realName}
+                )
+              </Text>
             </View>
           </ShimmerPlaceHolder>
           <ShimmerPlaceHolder
@@ -185,7 +207,13 @@ export default function ViewProfile() {
               <View style={styles.iconTextContainer}>
                 <FontAwesome name="whatsapp" color={colors.primary} size={34} />
                 <Text style={styles.textInfo}>
-                  ({member.wpp.slice(0, 2)}) {member.wpp.slice(2, 7)}-{''}
+                  (
+                  {member.wpp.slice(0, 2)}
+                  )
+                  {' '}
+                  {member.wpp.slice(2, 7)}
+                  -
+                  {''}
                   {member.wpp.slice(7)}
                 </Text>
                 <TouchableOpacity
@@ -208,10 +236,18 @@ export default function ViewProfile() {
             visible={loaded}
           >
             <View style={styles.carTeamContainer}>
-              <Image
-                style={styles.car}
-                source={member.hasCar === 0 ? notCarIcon : carIcon}
-              />
+              {member.hasCar === 0
+                ? (
+                  <CarIcon
+                    iconUrl={notCarIcon}
+                    style={styles.car}
+                  />
+                )
+                : (
+                  <View style={styles.car}>
+                    <FontAwesome5 name="car-alt" color={colors.primary} size={28} />
+                  </View>
+                )}
               <TeamIcon
                 color={colors.primary}
                 size={28}
