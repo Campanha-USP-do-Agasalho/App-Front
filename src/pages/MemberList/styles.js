@@ -83,8 +83,14 @@ export default StyleSheet.create({
     paddingHorizontal: 0.05 * width,
   },
   avatar: {
-    backgroundColor: colors.white,
-    alignSelf: 'center',
+    borderRadius: 50,
+    height: 80,
+    width: 80,
+  },
+  standartAvatar: {
+    height: 80,
+    width: 80,
+    borderColor: '#000000aa',
   },
   memberInfo: {
     justifyContent: 'space-evenly',

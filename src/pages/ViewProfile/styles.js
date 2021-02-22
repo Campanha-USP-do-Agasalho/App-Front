@@ -35,6 +35,7 @@ export default StyleSheet.create({
     backgroundColor: colors.white,
   },
   avatar: {
+    marginTop: 0.08 * height,
     width: 0.2 * width,
     height: 0.2 * width,
     resizeMode: 'cover',
