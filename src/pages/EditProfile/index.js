@@ -1,12 +1,15 @@
 /* eslint-disable no-underscore-dangle */
 // REACT E REACT NATIVES IMPORTS
 import React, { useState } from 'react';
-import { Image, View, Text, TextInput, TouchableOpacity } from 'react-native';
+import {
+  Image, View, Text, TextInput, TouchableOpacity,
+} from 'react-native';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { showMessage } from 'react-native-flash-message';
 import * as ImagePicker from 'expo-image-picker';
 import { Avatar } from 'react-native-elements';
 import AsyncStorage from '@react-native-community/async-storage';
+import { mutate } from 'swr';
 
 // ICONS
 import { MaterialIcons, Feather, FontAwesome } from '@expo/vector-icons';
@@ -53,12 +56,11 @@ export default function EditProfile() {
     navigation.goBack();
   }
 
-  async function saveMemberStorage() {
+  async function saveMemberStorage(data) {
     try {
-      const resp = await api.get(`/members/${member._id}`, {});
       await AsyncStorage.setItem(
         '@CampanhaAuth:user',
-        JSON.stringify(resp.data)
+        JSON.stringify(data),
       );
     } catch (error) {
       const { data } = error.response;
@@ -67,13 +69,23 @@ export default function EditProfile() {
   }
 
   // MANDA AS INFORMAÇÕES PARA O BANCO
-  async function saveInformations() {
+  async function saveInformations(e) {
+    e.preventDefault();
     if (validateEmail(email) === false) {
       return;
     }
     if (validateWhatsApp(wpp) === false) {
       return;
     }
+    // const data = {};
+    // data.name = name;
+    // data.realName = nickname;
+    // data.email = email;
+    // data.wpp = wpp;
+    // data.team = member.team._id;
+    // data.course = course;
+    // data.coord = member.coord;
+    // data.hasCar = hasCar;
     const data = new FormData();
     data.append('name', name);
     data.append('realName', nickname);
@@ -86,10 +98,16 @@ export default function EditProfile() {
 
     if (deleteImage === true) {
       data.append('deleteImage', true);
+    //   data.deleteImage = true;
     } else if (photo !== 'none' && photo.uri) {
       photo.type = 'image';
       const fileName = photo.uri.split('/').pop();
       const ext = photo.uri.split('.').pop();
+      //   data.image = {
+      //     uri: photo.uri,
+      //     name: fileName,
+      //     type: `${photo.type}/${ext}`,
+      //   };
       data.append('image', {
         uri: photo.uri,
         name: fileName,
@@ -100,14 +118,14 @@ export default function EditProfile() {
     try {
       setLoaderVisible(true);
       await api.put(`/members/${member._id}`, data);
-      await saveMemberStorage();
+      const obj = Object.fromEntries(data._parts);
+      // eslint-disable-next-line no-nested-ternary
+      const url = photo.url ? photo.url : photo.uri ? photo.uri : null;
+      const newData = { id: member._id, image: { url }, ...obj };
+      await saveMemberStorage(newData);
+      mutate('members', newData);
+      mutate(`/members/${member._id}`, newData);
 
-      // reseta a pagina de perfil
-      // ainda não entendi como funciona direito
-      navigation.reset({
-        index: 0,
-        routes: [{ name: 'Perfil' }],
-      });
       setLoaderVisible(false);
       // Navega para a tela de perfil da BottomTab
       navigation.navigate('BottomTab', {
@@ -122,9 +140,9 @@ export default function EditProfile() {
       });
     } catch (error) {
       setLoaderVisible(false);
-      const { data } = error.response;
+      const { data: errorData } = error.response;
       showMessage({
-        message: data.err,
+        message: errorData.err,
         type: 'info',
         backgroundColor: colors.red,
         position: { top: 330, left: 20, right: 20 },

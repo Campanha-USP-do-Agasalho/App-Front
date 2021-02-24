@@ -3,7 +3,6 @@
 import React, { useState, useEffect } from 'react';
 import {
   FlatList,
-  Picker,
   View,
   TextInput,
   Text,
@@ -13,6 +12,7 @@ import { CheckBox, Divider } from 'react-native-elements';
 import { useNavigation } from '@react-navigation/native';
 import ShimmerPlaceHolder from 'react-native-shimmer-placeholder';
 import AsyncStorage from '@react-native-community/async-storage';
+import { Picker } from '@react-native-picker/picker';
 // ESTILOS
 import styles from './styles';
 import globalStyles, { colors } from '../../globalStyles';
@@ -21,7 +21,7 @@ import globalStyles, { colors } from '../../globalStyles';
 import MemberCard from '../../components/memberCard';
 
 // API
-import api from '../../services/api';
+import useAPI from '../../services/useAPI';
 
 // UTILS
 import { filterMembers } from '../../utils';
@@ -35,9 +35,11 @@ export default function MemberList() {
   const [name, setName] = useState('');
   const [team, setTeam] = useState('all');
   const [checkCar, setCheckCar] = useState(false);
-  const [allMembers, setAllMembers] = useState([]);
+  const [allMembers, setAllMembers] = useState(false);
   const [filteredMembers, setFilteredMembers] = useState([]);
-  const [loaded, setLoaded] = useState(false);
+  const [loaded, setLoaded] = useState(!!allMembers);
+
+  const { data } = useAPI('members');
 
   // FILTRAGEM DOS MEMBROS
   function filterMembersbyCar() {
@@ -60,9 +62,9 @@ export default function MemberList() {
 
   // CARREGA TODOS OS MEMBROS DO BANCO
   async function loadMembers() {
-    const resp = await api.get('/members', {});
-    setAllMembers(resp.data);
-    setFilteredMembers(resp.data);
+    if (!data) return;
+    setAllMembers(data);
+    setFilteredMembers(data);
     setLoaded(true);
   }
 
@@ -72,8 +74,11 @@ export default function MemberList() {
       setLoggedMemberID(resp._id);
     }
     getLoggedMember();
-    loadMembers();
   }, []);
+
+  useEffect(() => {
+    loadMembers();
+  }, [data]);
 
   // NAVEGA PARA A TELA DE VER O PERFIL DO MEMBRO
   function NavigateToViewProfile(member) {

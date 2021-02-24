@@ -33,7 +33,7 @@ import ShowEditSave from '../../components/showEditSave';
 import TeamIcon from '../../components/TeamIcon';
 import CarIcon from '../../components/CarIcon';
 // API
-import api from '../../services/api';
+import useAPI from '../../services/useAPI';
 
 // UTILS
 import { copyToClipboard, sendWhatsapp } from '../../utils';
@@ -47,6 +47,7 @@ export default function ViewProfile() {
   const [drawerVisible, setDrawerVisible] = useState(false);
   const [loaded, setLoaded] = useState(false);
   const [loggedMemberID, setLoggedMemberID] = useState('');
+  const [memberID, setMemberID] = useState('');
   const [member, setMember] = useState({
     wpp: '',
     team: {
@@ -54,6 +55,7 @@ export default function ViewProfile() {
     },
   });
 
+  const { data } = useAPI(memberID ? `members${memberID}` : null);
   // NAVEGA PARA A TELA DE EDITAR PERFIL
   function NavigateToEditProfile(member) {
     setDrawerVisible(false);
@@ -67,32 +69,35 @@ export default function ViewProfile() {
   }
 
   // RECUPERA AS INFORMAÇÕES DO MEMBRO NO BANCO
-  async function getMember(memberId) {
-    console.log('hello');
-    const resp = await api.get(`/members/${memberId}`, {});
-    setMember(resp.data);
-
+  async function getMember() {
+    console.log('getMmebr');
+    console.log(memberID);
+    if (!data) return;
+    console.log('data');
+    console.log(data);
+    setMember(data);
     setLoaded(true);
   }
 
   // CHAMADA API PARA BUSCAR AS INFORMACOES DO MEMBRO NO BANCO
   useEffect(() => {
     async function getLoggedMember() {
+      console.log('entrei getLoggedMember');
       const resp = JSON.parse(await AsyncStorage.getItem('@CampanhaAuth:user'));
-      setMember(resp);
       setLoggedMemberID(resp._id);
+      const id = route.params?.id ? route.params.id : loggedMemberID;
+      console.log(id);
+      setMemberID(id);
     }
 
     // O PADRAO DA TELA É A TELA DE PERFIL DO USUARIO LOGADO
     // SE HOUVER UM ID NA ROTA, ENTAO EU PEGO OS DADOS DO MEMBRO QUE TEM ESSE ID NOVO
     getLoggedMember();
-    if (route.params?.id) {
-      getMember(route.params.id);
-    } else {
-      setLoaded(true);
-    }
   }, []);
 
+  useEffect(() => {
+    getMember();
+  }, [data]);
   return (
     <View style={globalStyles.container}>
       {/* MODALS */}

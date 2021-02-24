@@ -10,7 +10,7 @@ export default function ShowEditSave({ show, onPress, type }) {
   }
   if (type === 'save') {
     return (
-      <TouchableOpacity onPress={onPress} style={globalStyles.editSaveButton}>
+      <TouchableOpacity onPress={(e) => onPress(e)} style={globalStyles.editSaveButton}>
         <MaterialIcons name="check" color={colors.white} size={28} />
       </TouchableOpacity>
     );
