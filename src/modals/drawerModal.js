@@ -9,6 +9,7 @@ import {
   TouchableWithoutFeedback,
   TouchableOpacity,
 } from 'react-native';
+import Constants from 'expo-constants';
 import { colors } from '../globalStyles';
 
 const { height, width } = Dimensions.get('window');
@@ -60,6 +61,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'flex-end',
     marginRight: 2,
+    paddingTop: Constants.statusBarHeight,
   },
   modalView: {
     backgroundColor: colors.white,

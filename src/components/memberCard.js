@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
 import ShimmerPlaceHolder from 'react-native-shimmer-placeholder';
-
+import { Image } from 'react-native-expo-image-cache';
 import { Avatar } from 'react-native-elements';
 import { MaterialIcons, FontAwesome5 } from '@expo/vector-icons';
 import ViewImageModal from '../modals/viewImageModal';
@@ -14,7 +14,9 @@ function MemberCard({ member, loaded, navigateFunction }) {
 
   return (
     <ShimmerPlaceHolder
-      style={{ height: 120, width: '100%', marginTop: 10, borderRadius: 6 }}
+      style={{
+        height: 120, width: '100%', marginTop: 10, borderRadius: 6,
+      }}
       autoRun
       visible={loaded}
     >
@@ -25,14 +27,26 @@ function MemberCard({ member, loaded, navigateFunction }) {
         name={member.realName}
       />
       <TouchableOpacity style={styles.card} onPress={navigateFunction}>
-        <Avatar
-          size="large"
-          rounded
-          title={member.name.slice(0, 2)}
-          onPress={() => setViewImageVisible(true)}
-          activeOpacity={0.8}
-          source={{ uri: member.image ? member.image.url : 'none' }}
-        />
+        {(member.image && member.image.url)
+          ? (
+            <View>
+              <Image style={styles.avatar} uri={member.image.url} />
+            </View>
+          )
+          : (
+            <View>
+              <Avatar
+                containerStyle={styles.standartAvatar}
+                size="large"
+                rounded
+                title={member.name ? member.name.slice(0, 2) : 'UN'}
+                onPress={() => setViewImageVisible(true)}
+                activeOpacity={0.8}
+                source={{ uri: 'none' }}
+              />
+            </View>
+
+          )}
 
         <View style={styles.memberInfo}>
           <View>
@@ -47,8 +61,8 @@ function MemberCard({ member, loaded, navigateFunction }) {
             color={member.coord === true ? colors.primary : colors.white}
             size={28}
           />
-          <MaterialIcons
-            name="directions-car"
+          <FontAwesome5
+            name="car-alt"
             color={member.hasCar === 1 ? colors.primary : colors.white}
             size={32}
           />

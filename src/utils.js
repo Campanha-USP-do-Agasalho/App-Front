@@ -75,17 +75,17 @@ export function filterMembers(allMembers, name, team, checkCar) {
       if (team === 'all') return memberData.indexOf(textData) > -1;
 
       return (
-        memberData.indexOf(textData) > -1 &&
-        member.team.name.toUpperCase() === team.toUpperCase()
+        memberData.indexOf(textData) > -1
+        && member.team.name.toUpperCase() === team.toUpperCase()
       );
     }
-    if (team === 'all')
-      return memberData.indexOf(textData) > -1 && member.hasCar === 1;
-
+    if (team === 'all') {
+      return (memberData.indexOf(textData) > -1 && member.hasCar === 1);
+    }
     return (
-      memberData.indexOf(textData) > -1 &&
-      member.team.name.toUpperCase() === team.toUpperCase() &&
-      member.hasCar === 1
+      memberData.indexOf(textData) > -1
+      && member.team.name.toUpperCase() === team.toUpperCase()
+      && member.hasCar === 1
     );
   });
   return newData;
