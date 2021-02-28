@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { showMessage } from 'react-native-flash-message';
+import {GeneralContainer, EmailInput, SuccessButton, ButtonText, colorsTest} from './styles'
+
 
 import {
   View,
@@ -9,8 +11,9 @@ import {
   TouchableOpacity,
   Dimensions,
 } from 'react-native';
+const { height, width } = Dimensions.get('window');
 
-import globalStyles, { colors } from '../../globalStyles';
+import globalStyles,{colors} from '../../globalStyles';
 
 // API
 import api from '../../services/api';
@@ -18,7 +21,7 @@ import api from '../../services/api';
 // UTILS
 import { validateEmail, checkSpace } from '../../utils';
 
-const { height, width } = Dimensions.get('window');
+
 
 export default function ForgotPassword() {
   const [email, setEmail] = useState('');
@@ -66,23 +69,19 @@ export default function ForgotPassword() {
   }
 
   return (
-    <View style={globalStyles.authContainer}>
-      <TextInput
-        style={globalStyles.input}
+    <GeneralContainer
+      height={height}
+    >
+      <EmailInput
         placeholder="Digite seu Email"
         autoCapitalize="none"
         keyboardType="email-address"
         value={email}
         onChangeText={(email) => setEmail(email)}
       />
-      <TouchableOpacity
-        onPress={sendToken}
-        style={{
-          ...globalStyles.successButton,
-        }}
-      >
-        <Text style={globalStyles.buttonText}>Enviar Código de Segurança</Text>
-      </TouchableOpacity>
-    </View>
+      <SuccessButton onPress={sendToken}>
+        <ButtonText >Enviar Código de Segurança</ButtonText >
+      </SuccessButton>
+    </GeneralContainer>
   );
 }

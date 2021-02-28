@@ -12,7 +12,7 @@ import { showMessage } from 'react-native-flash-message';
 
 import { useNavigation, useRoute } from '@react-navigation/native';
 
-import styles from './styles';
+import styles, { EmailContainer, GeneralContainer, SuccessButton, TokenInput, ButtonText, FailedButton, FailedText, ErrorButton } from './styles';
 import globalStyles, { colors } from '../../globalStyles';
 
 // UTILS
@@ -48,35 +48,51 @@ export default function ForgotPassword() {
     navigation.navigate('Criar Nova Senha', { token, memberId: id });
   }
   return (
-    <View style={globalStyles.authContainer}>
-      <View style={styles.emailContainer}>
-        <TextInput
-          style={globalStyles.input}
+
+    <GeneralContainer
+      heightGeneralContainer={height}
+      >
+      <EmailContainer
+        h={height}
+        w={width}
+      >
+        <TokenInput
+          heightTextInput={height}
+          widthTextInput={width}
           placeholder="Cole aqui o token recebido"
           autoCapitalize="none"
           keyboardType="default"
           value={token}
           onChangeText={(token) => setToken(token)}
         />
-        <TouchableOpacity
+        <SuccessButton
+          heightSuccessButton={height}
+          widthSuccessButton={width}
           onPress={resetPassword}
-          style={globalStyles.successButton}
         >
-          <Text style={globalStyles.buttonText}>Criar Nova Senha</Text>
-        </TouchableOpacity>
-      </View>
+          <ButtonText>Criar Nova Senha</ButtonText>
+        </SuccessButton>
+      </EmailContainer>
 
-      <View style={styles.failedButton}>
-        <Text style={styles.text}>Não recebeu o código?</Text>
-        <TouchableOpacity
-          onPress={() => navigation.goBack()}
-          style={globalStyles.errorButton}
+      <FailedButton
+        heightFailedButton={height}
+      >
+        <FailedText
+          heightFailedText={height}
         >
-          <Text style={globalStyles.buttonText}>
+          Não recebeu o código?
+        </FailedText>
+        <ErrorButton
+          heightErrorButton={height}
+          widthErrorButton={width}
+          onPress={() => navigation.goBack()}
+        >
+          <ButtonText>
             Reenviar Código de Segurança
-          </Text>
-        </TouchableOpacity>
-      </View>
-    </View>
+          </ButtonText>
+        </ErrorButton>
+      </FailedButton>
+    </GeneralContainer>
+    
   );
 }
