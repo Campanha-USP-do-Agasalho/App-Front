@@ -94,6 +94,7 @@ export default function Login() {
   }
 
   function forgotPassword() {
+
     navigation.navigate('Resetar Senha');
   }
 

@@ -1,5 +1,6 @@
 import { StyleSheet, Dimensions } from 'react-native';
-import Constants from 'expo-constants';
+
+import Constants from 'expo-constants'
 
 const { height, width } = Dimensions.get('window');
 
@@ -72,7 +73,7 @@ export default StyleSheet.create({
     marginBottom: 20,
   },
   inputIcon: {
-    justifyContent: 'center',
+    justifyContent: 'center'
   },
   successButton: {
     marginTop: 0.03 * height,

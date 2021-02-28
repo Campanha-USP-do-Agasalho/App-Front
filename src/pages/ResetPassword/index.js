@@ -18,6 +18,7 @@ import { checkSpace } from '../../utils';
 
 // API
 import api from '../../services/api';
+import { GeneralContainer, PasswordInputContainer, PasswordInput, PasswordView, SuccessButton, ButtonText } from './styles';
 
 const { height, width } = Dimensions.get('window');
 
@@ -100,57 +101,60 @@ export default function ResetPassword() {
   }
 
   return (
-    <View style={globalStyles.authContainer}>
-      <View
-        style={{
-          ...globalStyles.input,
-        }}
+    <GeneralContainer
+      heightGeneralContainer={height}
+    >
+      <PasswordInputContainer
+        heightPasswordInputContainer={height}
+        widthPasswordInputContainer={width}
       >
-        <TextInput
-          style={{ width: '90%' }}
+        <PasswordInput
+          widthPasswordInput={width*0.86}
           secureTextEntry={securePassword}
           placeholder="Digite sua nova senha"
           autoCapitalize="none"
           keyboardType="default"
+          fontSize={15}
           value={password}
           onChangeText={(password) => setPassword(password)}
         />
-        <TouchableOpacity onPress={passwordView} style={globalStyles.inputIcon}>
+        <PasswordView onPress={passwordView}>
           <MaterialCommunityIcons
             name={showPassword === false ? 'eye-off' : 'eye'}
             size={20}
           />
-        </TouchableOpacity>
-      </View>
+        </PasswordView>
+      </PasswordInputContainer>
 
-      <View
-        style={{
-          ...globalStyles.input,
-          marginTop: 20,
-        }}
+      <PasswordInputContainer
+        heightPasswordInputContainer={height}
+        widthPasswordInputContainer={width}
+        marginTop={20}
       >
-        <TextInput
-          style={{ width: '90%' }}
+        <PasswordInput
+          widthPasswordInput={width*0.86}
           secureTextEntry={securePassword}
           placeholder="Digite sua nova senha novamente"
+          fontSize={15}
           autoCapitalize="none"
           keyboardType="default"
           value={password2}
           onChangeText={(password2) => setPassword2(password2)}
         />
-        <TouchableOpacity onPress={passwordView} style={globalStyles.inputIcon}>
+        <PasswordView onPress={passwordView}>
           <MaterialCommunityIcons
             name={showPassword === false ? 'eye-off' : 'eye'}
             size={20}
           />
-        </TouchableOpacity>
-      </View>
-      <TouchableOpacity
+        </PasswordView>
+      </PasswordInputContainer>
+      <SuccessButton
         onPress={savePassword}
-        style={globalStyles.successButton}
+        widthSuccessButton={width}
+        heightSuccessButton={height}
       >
-        <Text style={globalStyles.buttonText}>Criar Nova Senha</Text>
-      </TouchableOpacity>
-    </View>
+        <ButtonText>Criar Nova Senha</ButtonText>
+      </SuccessButton>
+    </GeneralContainer>
   );
 }
