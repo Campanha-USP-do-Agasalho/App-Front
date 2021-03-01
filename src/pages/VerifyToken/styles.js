@@ -8,7 +8,7 @@ export const GeneralContainer = styled.View`
     display: flex;
     align-items: center;
     justify-content: flex-start;
-    background-color: #003D5C; /*primary*/
+    background-color: ${colors.primary};
     padding-top: 48px;
     padding-bottom: 48px;
     height: ${props => `${props.heightGeneralContainer}px`};
@@ -30,9 +30,9 @@ export const TokenInput = styled.TextInput`
     justify-content: flex-start;
     width: ${props => `${props.widthTextInput*0.86}px`};
     height: ${props => `${props.heightTextInput*0.07}px`};
-    background-color: #FFFFFF; /*white*/
+    background-color: ${colors.white};
     border-width: 1px;
-    border-color: #003D5C; /*primary*/
+    border-color: ${colors.primary};
     border-radius: 5px;
     margin-bottom: 44px;
     padding-left: 24px;
@@ -43,11 +43,11 @@ export const TokenInput = styled.TextInput`
 export const SuccessButton = styled.TouchableOpacity`
     width: ${props => `${props.widthSuccessButton*0.75}px`};
     height: ${props => `${props.heightSuccessButton*0.08}px`};
-    background-color: #3DACE1; /*secondary*/
+    background-color: ${colors.secondary};
     align-items: center;
     justify-content: center;
     border-width: 1px;
-    border-color: #003D5C; /*primary*/
+    border-color: ${colors.primary};
     border-radius: 30px;
 `;
 
@@ -56,7 +56,7 @@ export const ButtonText = styled.Text`
     align-self: center;
     font-weight: 900;
     font-size: 16px;
-    color: #FFFFFF /*white*/;
+    color: ${colors.white};
 `;
 
 export const FailedButton = styled.View`
@@ -73,32 +73,13 @@ export const FailedText = styled.Text`
 
 export const ErrorButton = styled.TouchableOpacity`
     margin-top: ${props => `${props.heightErrorButton * 0.03}px` };
-    background-color: #F79839; /*Orange*/ 
+    background-color: ${colors.orange};
     align-items: center;
     justify-content: center;
     width: ${props => `${props.widthErrorButton * 0.75}px` };
     height: ${props => `${props.heightErrorButton * 0.07}px` };
     border-width: 1px;
-    border-color: #003D5C; /*Primary*/ 
+    border-color: ${colors.primary};
     border-radius: 30px;
 `;
 
-
-/*
-export default StyleSheet.create({
-    emailContainer: {
-      alignItems: 'center',
-      justifyContent: 'flex-start',
-    },
-    text: {
-      marginTop: height * 0.03,
-      fontWeight: 'bold',
-      fontSize: 16,
-      color: colors.white,
-      alignSelf: 'center',
-    },
-    failedButton: {
-      marginTop: 0.06 * height,
-    },
-  });
-*/
