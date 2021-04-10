@@ -12,6 +12,11 @@ import { colors } from '../globalStyles';
 function MemberCard({ member, loaded, navigateFunction }) {
   const [ViewImageVisible, setViewImageVisible] = useState(false);
 
+    function infoFunction(){
+        setViewImageVisible(false)
+        navigateFunction()
+    }
+
   return (
     <ShimmerPlaceHolder
       style={{
@@ -23,14 +28,20 @@ function MemberCard({ member, loaded, navigateFunction }) {
       <ViewImageModal
         visible={ViewImageVisible}
         cancel={() => setViewImageVisible(false)}
-        image={member.image ? member.image.url : 'none'}
-        name={member.realName}
+        image={member.image ? member.image.url : null}
+        name={member.name}
+        realName={member.realName}
+        wpp={member.wpp}
+        infoFunction={infoFunction}
       />
       <TouchableOpacity style={styles.card} onPress={navigateFunction}>
         {(member.image && member.image.url)
           ? (
             <View>
-              <Image style={styles.avatar} uri={member.image.url} />
+                <TouchableOpacity onPress={() => setViewImageVisible(true)}>
+                    <Image style={styles.avatar} uri={member.image.url} />
+                </TouchableOpacity>
+              
             </View>
           )
           : (

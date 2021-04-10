@@ -2,17 +2,22 @@
 import React, { useState } from 'react';
 import {
   Modal,
-  ImageBackground,
   ActivityIndicator,
-  Image,
   View,
   Dimensions,
-  Text,
-  StyleSheet,
   TouchableWithoutFeedback,
   TouchableOpacity,
+  Text,
+  ImageBackground
 } from 'react-native';
 
+import { Image } from 'react-native-expo-image-cache';
+import { Avatar } from 'react-native-elements';
+import { Feather, FontAwesome5 } from '@expo/vector-icons';
+
+import styled from 'styled-components/native'
+
+import { sendWhatsapp } from '../utils';
 import { colors } from '../globalStyles';
 
 // ICONS
@@ -20,8 +25,8 @@ import personIcon from '../assets/Icons/person.png';
 
 const { height, width } = Dimensions.get('window');
 
-export default function ViewImageModal({ visible, image, cancel, name }) {
-  const [loading, setLoading] = useState(image !== 'none');
+export default function ViewImageModal({ visible, image, cancel, name, realName, infoFunction, wpp }) {
+  const [loading, setLoading] = useState(image !== null);
 
   function starts() {
     setLoading(image !== 'none');
@@ -35,76 +40,119 @@ export default function ViewImageModal({ visible, image, cancel, name }) {
       visible={visible}
       onRequestClose={cancel}
     >
-      <TouchableOpacity
-        style={styles.modalContainer}
+      <ModalContainer
         activeOpacity={1}
         onPress={cancel}
       >
-        <TouchableWithoutFeedback>
-          {/* TouchableWithoutFeedback MUST have ONLY ONE child component */}
-          <View style={styles.infoContainer}>
-            <View>
-              <Text style={styles.title}>{name}</Text>
-              <ImageBackground
-                style={styles.standartAvatar}
-                source={personIcon}
-              >
-                <Image
-                  onLoadStart={starts}
-                  onLoadEnd={() => setLoading(false)}
-                  style={styles.avatar}
-                  source={{ uri: image }}
-                />
-              </ImageBackground>
-            </View>
+        <InfoContainer >
+               
+                {(image)
+                    ? (
+                        <TitleImageView>
+                            <StyledAvatar source={{ uri: image }} >
+                                <TitleView opacity={0.7}>
+                                    <TitleName >{realName}</TitleName>
+                                </TitleView> 
+                            </StyledAvatar>
+                        </TitleImageView>
+                    )
+                    : (
+                        <TitleImageView>
+                            <TitleView opacity={1}>
+                                <TitleName >{realName}</TitleName>
+                            </TitleView>
+                            <StandartAvatar
+                                size="large"
+                                title={name ? name.slice(0, 2) : 'UN'}
+                                activeOpacity={0.8}
+                                source={{ uri: 'none' }}
+                            />
+                        </TitleImageView>
 
-            <ActivityIndicator
-              style={styles.activityIndicator}
-              animating={loading}
-              size="large"
+                )}
+            
+            <ButtonsView>
+                <TouchableOpacity  onPress={()=>console.log("email")}>
+                    <Feather name="mail" size={30} color={colors.white}/>
+                </TouchableOpacity>
+                <TouchableOpacity onPress={() => sendWhatsapp(wpp)}>
+                    <FontAwesome5 name="whatsapp" size={30} color={colors.white}/>
+                </TouchableOpacity>
+                <TouchableOpacity onPress={infoFunction}>
+                    <Feather name="info" size={30} color={colors.white}/>
+                </TouchableOpacity>
+            </ButtonsView>
+
+            <StyledActivityIndicator
+                animating={loading}
+                size="large"
             />
-          </View>
-        </TouchableWithoutFeedback>
-      </TouchableOpacity>
+        </InfoContainer>
+      </ModalContainer>
     </Modal>
   );
 }
 
-const styles = StyleSheet.create({
-  modalContainer: {
-    height, // ALL height
-    width, // ALL width
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: 'rgba(0,0,0,0.7)',
-  },
-  infoContainer: {
-    width: '90%',
-    height: '45%',
-    justifyContent: 'center',
-  },
-  title: {
-    backgroundColor: colors.grey1,
-    color: colors.white,
-    height: '10%',
-    textAlign: 'center',
-    paddingTop: '1.5%',
-    fontSize: 18,
-  },
-  standartAvatar: {
-    width: '100%',
-    height: '100%',
-    backgroundColor: colors.white,
-  },
-  avatar: {
-    height: '100%',
-    resizeMode: 'stretch',
-  },
-  activityIndicator: {
-    position: 'absolute',
-    left: 0,
-    right: 0,
-    top: 0,
-    bottom: 0,
-  },
-});
+const ModalContainer = styled.TouchableOpacity`
+    display: flex;    
+    height: 100%;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0,0,0,0.7);
+`;
+
+const InfoContainer =  styled.View`
+    width: 90%;
+    height: 50%;
+    justify-content: center;
+`;
+
+const TitleImageView = styled.View`
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+
+`;
+
+const TitleView =  styled.View`
+    display: flex;
+    align-items:flex-start;
+    justify-content: center;
+    background-color: rgba(0,59,93, ${props => props.opacity});
+    height: 15%;
+    padding-left: 3%;
+`; 
+
+const TitleName = styled.Text`
+    color: ${colors.white};
+    font-size: 22px;
+`;
+
+const StyledAvatar = styled(ImageBackground)`
+    height: 100%;
+    width: 100%;
+`;
+
+const StandartAvatar = styled(Avatar)`
+    height: 100%;
+    width: 100%;
+    background-color: ${colors.white};
+`;
+
+const StyledActivityIndicator = styled(ActivityIndicator)`
+    position: absolute;
+    left: 0px;
+    right: 0px;
+    top: 0px;
+    bottom: 0px;
+`;
+
+const ButtonsView = styled.View`
+    display:flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+    background-color: ${colors.primary};
+    height: 15%;
+`;

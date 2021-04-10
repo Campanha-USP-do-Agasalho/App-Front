@@ -3,7 +3,6 @@
 import React, { useState, useEffect } from 'react';
 import {
   FlatList,
-  Picker,
   View,
   TextInput,
   Text,
@@ -13,6 +12,7 @@ import { CheckBox, Divider } from 'react-native-elements';
 import { useNavigation } from '@react-navigation/native';
 import ShimmerPlaceHolder from 'react-native-shimmer-placeholder';
 import AsyncStorage from '@react-native-community/async-storage';
+import { Picker } from '@react-native-picker/picker';
 // ESTILOS
 import styles from './styles';
 import globalStyles, { colors } from '../../globalStyles';

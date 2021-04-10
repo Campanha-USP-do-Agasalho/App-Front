@@ -5,7 +5,7 @@ import Constants from 'expo-constants'
 const { height, width } = Dimensions.get('window');
 
 export const colors = {
-  primary: '#003D5C',
+  primary: '#003B5D',
   secondary: '#3DACE1',
   orange: '#F79839',
   black: '#000000',
