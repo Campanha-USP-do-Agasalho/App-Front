@@ -39,7 +39,6 @@ export const PasswordInput = styled.TextInput`
 
 export const PasswordView = styled.TouchableOpacity`
     justify-content: center;
-    align-self: flex-end;
 `;
 
 export const SuccessButton = styled.TouchableOpacity`

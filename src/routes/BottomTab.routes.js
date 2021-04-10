@@ -5,6 +5,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 // COMPONENTS
 import { MaterialIcons, Entypo, FontAwesome } from '@expo/vector-icons';
 import MemberList from '../pages/MemberList';
+import EventList from '../pages/EventList';
 import ViewProfile from '../pages/ViewProfile';
 import Dashboard from '../pages/Dashboard';
 import MemberListStackScreen from './MemberList.routes';
@@ -46,7 +47,7 @@ export default function BottomTab() {
             <FontAwesome name="calendar" color={color} size={28} />
           ),
         }}
-        component={MemberList}
+        component={EventList}
       />
       <Tabs.Screen
         name="Membros"
