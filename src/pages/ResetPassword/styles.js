@@ -9,7 +9,7 @@ export const GeneralContainer = styled.View`
     display: flex;
     align-items: center;
     justify-content: flex-start;
-    background-color: #003D5C; /*primary*/
+    background-color: ${colors.primary};
     padding-top: 48px;
     padding-bottom: 48px;
     height: ${props => `${props.heightGeneralContainer}px`};
@@ -23,9 +23,9 @@ export const PasswordInputContainer = styled.View`
     justify-content: flex-start;
     width: ${props => `${props.widthPasswordInputContainer*0.86}px`};
     height: ${props => `${props.heightPasswordInputContainer*0.07}px`};
-    background-color: #FFFFFF; /*white*/
+    background-color: ${colors.white};
     border-width: 1px;
-    border-color: #003D5C; /*primary*/
+    border-color: ${colors.primary};
     border-radius: 5px;
     margin-bottom: 44px;
     padding-left: 24px;
@@ -39,17 +39,16 @@ export const PasswordInput = styled.TextInput`
 
 export const PasswordView = styled.TouchableOpacity`
     justify-content: center;
-    align-self: flex-end;
 `;
 
 export const SuccessButton = styled.TouchableOpacity`
     width: ${props => `${props.widthSuccessButton*0.75}px`};
     height: ${props => `${props.heightSuccessButton*0.08}px`};
-    background-color: #3DACE1; /*secondary*/
+    background-color: ${colors.secondary};
     align-items: center;
     justify-content: center;
     border-width: 1px;
-    border-color: #003D5C; /*primary*/
+    border-color: ${colors.primary};
     border-radius: 30px;
 `;
 
@@ -57,5 +56,5 @@ export const ButtonText = styled.Text`
     align-self: center;
     font-weight: 900;
     font-size: 16px;
-    color: #FFFFFF /*white*/;
+    color: ${colors.white};
 `;

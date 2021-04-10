@@ -17,7 +17,7 @@ import LoaderModal from '../../modals/loaderModal';
 
 import Logo from '../../assets/Logo/Logo.png';
 
-import styles from './styles';
+import styles, {GeneralContainer, EmailInput, PasswordView, InputPasswordIcon, ForgotPasswordView, ForgotPasswordText, SubmitButton, SubmitButtonText} from './styles';
 import globalStyles, { colors } from '../../globalStyles';
 
 import {
@@ -99,7 +99,9 @@ export default function Login() {
   }
 
   return (
-    <View style={styles.container}>
+    <GeneralContainer
+      heightContainer={height}
+    >
       <StatusBar
         backgroundColor={colors.primary}
         barStyle="light-content"
@@ -123,26 +125,27 @@ export default function Login() {
 
       <Animated.View
         style={
-          ([styles.content],
-          {
+          ({
+            justifyContent: 'space-between',
             opacity,
             transform: [{ translateY: offset.y }],
           })
         }
       >
-        <TextInput
-          style={{ ...globalStyles.input, marginTop: height * 0.01 }}
+        <EmailInput
+          widthEmailInput={width}
+          heightEmailInput={height}
+          marginTop={height * 0.01}
           placeholder="Email"
           autoCapitalize="none"
           keyboardType="email-address"
           value={email}
           onChangeText={(email) => setEmail(email)}
         />
-        <View
-          style={{
-            ...globalStyles.input,
-            marginTop: height * 0.03,
-          }}
+        <PasswordView
+          marginTop={height * 0.03}
+          widthPasswordView={width}
+          heightPasswordView={height}
         >
           <TextInput
             style={{ width: '90%' }}
@@ -153,30 +156,34 @@ export default function Login() {
             value={password}
             onChangeText={(password) => setPassword(password)}
           />
-          <TouchableOpacity
+          <InputPasswordIcon
             onPress={passwordView}
-            style={globalStyles.inputIcon}
           >
             <MaterialCommunityIcons
               name={showPassword === false ? 'eye' : 'eye-off'}
               size={20}
             />
-          </TouchableOpacity>
-        </View>
-        <View style={{ alignItems: 'center' }}>
+          </InputPasswordIcon>
+        </PasswordView>
+        <ForgotPasswordView>
           <TouchableOpacity onPress={forgotPassword}>
-            <Text style={styles.forgotPassword}>Esqueci minha senha</Text>
+            <ForgotPasswordText
+              heightForgotPasswordText={height}
+            >
+              Esqueci minha senha
+            </ForgotPasswordText>
           </TouchableOpacity>
-          <TouchableOpacity
+          <SubmitButton
+            heightSubmitButton={height}
+            widthSubmitButton={width}
             onPress={handleSubmit}
-            style={globalStyles.successButton}
           >
-            <Text style={{ ...globalStyles.buttonText, fontSize: 18 }}>
+            <SubmitButtonText>
               Entrar
-            </Text>
-          </TouchableOpacity>
-        </View>
+            </SubmitButtonText>
+          </SubmitButton>
+        </ForgotPasswordView>
       </Animated.View>
-    </View>
+    </GeneralContainer>
   );
 }

@@ -28,6 +28,6 @@
     "android": {
       "package": "com.usp.campanhadoagasalho",
       "versionCode": 1
-    },
+    }
   }
 }

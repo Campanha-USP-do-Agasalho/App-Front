@@ -59,7 +59,8 @@
     "react-native-tab-view": "^2.15.1",
     "react-native-web": "~0.13.12",
     "styled-components": "^5.2.1",
-    "tsc": "^1.20150623.0"
+    "tsc": "^1.20150623.0",
+    "yarn": "^1.22.10"
   },
   "devDependencies": {
     "@babel/core": "~7.9.0",
