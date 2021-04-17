@@ -7,7 +7,7 @@ import { MaterialIcons, Entypo, FontAwesome } from '@expo/vector-icons';
 import MemberList from '../pages/MemberList';
 import EventList from '../pages/EventList';
 import ViewProfile from '../pages/ViewProfile';
-import Dashboard from '../pages/Dashboard';
+import Landing from '../pages/Landing';
 import MemberListStackScreen from './MemberList.routes';
 
 // ESTILOS E ICONES
@@ -38,7 +38,7 @@ export default function BottomTab() {
             <Entypo name="home" color={color} size={28} />
           ),
         }}
-        component={Dashboard}
+        component={Landing}
       />
       <Tabs.Screen
         name="Eventos"
