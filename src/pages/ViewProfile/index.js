@@ -68,7 +68,6 @@ export default function ViewProfile() {
 
   // RECUPERA AS INFORMAÇÕES DO MEMBRO NO BANCO
   async function getMember(memberId) {
-    console.log('hello');
     const resp = await api.get(`/members/${memberId}`, {});
     setMember(resp.data);
 
