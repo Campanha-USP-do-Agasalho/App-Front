@@ -3,7 +3,7 @@ import { View, Text, TouchableOpacity } from 'react-native';
 import ShimmerPlaceHolder from 'react-native-shimmer-placeholder';
 import { Image } from 'react-native-expo-image-cache';
 import { Avatar } from 'react-native-elements';
-import { MaterialIcons, FontAwesome5 } from '@expo/vector-icons';
+import { FontAwesome5 } from '@expo/vector-icons';
 import ViewImageModal from '../modals/viewImageModal';
 
 import styles from '../pages/MemberList/styles';

@@ -3,15 +3,11 @@ import React, { useState } from 'react';
 import {
   Modal,
   ActivityIndicator,
-  View,
   Dimensions,
-  TouchableWithoutFeedback,
   TouchableOpacity,
-  Text,
   ImageBackground
 } from 'react-native';
 
-import { Image } from 'react-native-expo-image-cache';
 import { Avatar } from 'react-native-elements';
 import { Feather, FontAwesome5 } from '@expo/vector-icons';
 
@@ -20,17 +16,7 @@ import styled from 'styled-components/native'
 import { sendWhatsapp } from '../utils';
 import { colors } from '../globalStyles';
 
-// ICONS
-import personIcon from '../assets/Icons/person.png';
-
-const { height, width } = Dimensions.get('window');
-
 export default function ViewImageModal({ visible, image, cancel, name, realName, infoFunction, wpp }) {
-  const [loading, setLoading] = useState(image !== null);
-
-  function starts() {
-    setLoading(image !== 'none');
-  }
 
   return (
     <Modal
@@ -72,7 +58,7 @@ export default function ViewImageModal({ visible, image, cancel, name, realName,
                 )}
             
             <ButtonsView>
-                <TouchableOpacity  onPress={()=>console.log("email")}>
+                <TouchableOpacity onPress={()=>console.log("email")}>
                     <Feather name="mail" size={30} color={colors.white}/>
                 </TouchableOpacity>
                 <TouchableOpacity onPress={() => sendWhatsapp(wpp)}>
@@ -83,10 +69,6 @@ export default function ViewImageModal({ visible, image, cancel, name, realName,
                 </TouchableOpacity>
             </ButtonsView>
 
-            <StyledActivityIndicator
-                animating={loading}
-                size="large"
-            />
         </InfoContainer>
       </ModalContainer>
     </Modal>
