@@ -56,7 +56,6 @@ export const WhiteRow = styled(Divider)`
 
 export const EventsView = styled.View`
     display: flex;
-    align-items: center;
     justify-content: space-around;
     padding-bottom: 24px;
 `;
@@ -66,6 +65,6 @@ export const ListTitle = styled.Text`
     color: ${colors.white};
     align-self: flex-start;
     margin-left: 8%;
-    font-weight: bold;
+    font-weight: bold
     padding-bottom: 24px;
 `;

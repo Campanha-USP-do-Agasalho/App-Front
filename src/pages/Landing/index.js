@@ -5,6 +5,7 @@ import { useAuth } from '../../contexts/auth';
 
 import TeamIcon from '../../components/TeamIcon';
 import logo_src from '../../assets/Logo/Logo_without_text_800.png';
+import Events  from '../../assets/events.json'
 
 const { height } = Dimensions.get('window');
 
@@ -12,7 +13,7 @@ import { colors } from '../../globalStyles';
 import { GeneralContainer, Header, Logo, Username, TeamView, TeamName, WhiteRow, EventsView, ListTitle } from './styles'
 
 // COMPONENTES
-import MemberCard from '../../components/memberCard';
+import EventCard from '../../components/eventCard';
 
 export default function Dashboard() {
   
@@ -46,15 +47,14 @@ export default function Dashboard() {
                 ACONTECENDO AGORA
             </ListTitle>
             <FlatList
-                data={[user]}
+                data={[Events[0], Events[1]]}
                 vertical
                 showsVerticalScrollIndicator={false}
-                keyExtractor={(user) => user._id}
-                renderItem={({ item: user }) => (
-                    <MemberCard
-                    member={user}
-                    loaded={true}
-                    navigateFunction={() => NavigateToViewProfile(user)}
+                keyExtractor={(event) => event._id}
+                renderItem={({ item: event }) => (
+                    <EventCard
+                    event={event}
+                    user={user}
                     />
                 )}
             />
@@ -65,15 +65,14 @@ export default function Dashboard() {
                 PRÓXIMOS EVENTOS
             </ListTitle>
             <FlatList
-                data={[user]}
+                data={Events}
                 vertical
                 showsVerticalScrollIndicator={false}
-                keyExtractor={(user) => user._id}
-                renderItem={({ item: user }) => (
-                    <MemberCard
-                    member={user}
-                    loaded={true}
-                    navigateFunction={() => NavigateToViewProfile(user)}
+                keyExtractor={(event) => event._id}
+                renderItem={({ item: event }) => (
+                    <EventCard
+                    event={event}
+                    user={user}
                     />
                 )}
             />
