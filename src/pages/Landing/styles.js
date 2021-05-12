@@ -6,8 +6,8 @@ export const GeneralContainer = styled.View`
     display: flex;
     justify-content: flex-start;
     background-color: ${colors.primary};
-    padding-top: 10px;
-    padding-bottom: 10px;
+    padding-top: ${props => `${props.paddingTopGeneralContainer}px`};
+    padding-bottom: 15%;
     height: ${props => `${props.heightGeneralContainer}px`};
 `;
 
@@ -17,14 +17,18 @@ export const Header = styled.View`
     align-items: center;
     justify-content: space-around;
     padding-bottom: 10px;
+    padding-left: 20px;
+    padding-right: 20px;
 `;
 
 export const Logo = styled.Image`
+    flex: 1;
     width: 70px;
     height: 70px;
 `;
 
 export const Username = styled.Text`
+    flex: 3;
     font-size: 30px;
     color: ${colors.white};
     text-align: center;
@@ -33,6 +37,7 @@ export const Username = styled.Text`
 
 export const TeamView =  styled.View`
     display:flex;
+    flex: 1;
     flex-direction: column;
     justify-content: center;
     align-items: center
@@ -48,17 +53,24 @@ export const TeamName = styled.Text`
 export const WhiteRow = styled(Divider)`
     display: flex;
     align-self: center;
-    height: 0.5%;
+    background-color: ${colors.white};
+    width: 85%;
+    margin-bottom: 16px;
+    height: ${props => `${props.heightWhiteRow}px`};
+`;
+
+export const WhiteRow2 = styled(Divider)`
+    display: flex;
+    align-self: center;
+    height: 0.2%;
     background-color: ${colors.white};
     width: 85%;
     margin-bottom: 16px;
 `;
 
-export const EventsView = styled.View`
+export const EventsScrollView = styled.ScrollView`
     display: flex;
-    align-items: center;
-    justify-content: space-around;
-    padding-bottom: 24px;
+    padding-bottom: 10%;
 `;
 
 export const ListTitle = styled.Text`
@@ -69,3 +81,9 @@ export const ListTitle = styled.Text`
     font-weight: bold;
     padding-bottom: 24px;
 `;
+
+export const ListEvents = styled.View`
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+`; 
